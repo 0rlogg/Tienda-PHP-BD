@@ -1,15 +1,12 @@
 <?php
 
 session_start();
-//Creo un objeto de la clase plantilla
-spl_autoload_register(function ($clase){require ("clases/BD.php");});
+spl_autoload_register(function ($clase){
+    require ("clases/BD.php");
+});
 
-//Vengo de productos por no haberme registrado e intentar
-//ir directamente a esa pantalla.
+if (isset($_POST['submit'])) {
 
-if (isset($_POST['submit'])) {//He presionado enviar
-
-//llemos valores
     $usuario = $_POST['user'];
     $password = $_POST['pass'];
     $bd = new BD();

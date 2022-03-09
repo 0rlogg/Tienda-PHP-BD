@@ -21,11 +21,6 @@ class BD
         //comprovacion conexion
     }
 
-    /**
-     * @param String $user
-     * @param String $pass
-     * @return bool
-     */
     public function validar_login(String $user, String $pass){
         $consulta = "select * from usuarios where name = ? and pass = ?";
         $tipos= "ss";
@@ -33,11 +28,7 @@ class BD
         $rtdo = $this->ejecuta_consulta($consulta ,$tipos, $valores);
         return $rtdo->num_rows>0 ? true:false;
     }
-    //validar_login
 
-    /**
-     * @return void
-     */
     public function cerrar(){
         $this->conexion->close();
     }//cerrar
@@ -46,23 +37,22 @@ class BD
         $consulta = "select * from producto";
         $productos =[]; //La vaiable de retorno
         $resultado = $this->conexion->query($consulta);
-        $fila = $resultado->fetch_assoc();//convierte datos en array asociativo
+        $fila = $resultado->fetch_assoc();
 
         while ($fila){
             $productos[]=$fila;
             $fila = $resultado->fetch_assoc();
 
         }
-
         return $productos;
 
     }
 
     private function ejecuta_consulta($consulta, $tipos=null,$valores=[]){
-        $stmt = $this->conexion->stmt_init();//iniciamos stmt
-        $stmt->prepare($consulta);//preparamos la consulta
-        $stmt->bind_param($tipos, ...$valores);//pasamos los valores a los parametros
-        $stmt->execute();//ejecutamos la consulta
+        $stmt = $this->conexion->stmt_init();
+        $stmt->prepare($consulta);
+        $stmt->bind_param($tipos, ...$valores);
+        $stmt->execute();
         $stmt->store_result();//la guardamos en el buffer
         return $stmt;
     }

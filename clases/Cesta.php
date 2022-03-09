@@ -27,43 +27,30 @@ class Cesta{
             if ($this->cesta[$cod] == 1){
                 unset ($this->cesta[$cod]);}
             else{
-                $this->cesta[$cod]--;}}}
+                $this->cesta[$cod]--;}}
+    }
 
-//    public function precio_total($precio){
-//        $precio_total = "";
-//        $precio_total= $precio_total.$precio;
-//    }
-    /**
-     * @return null
-     */
     public function vaciar_cesta(){
         return new Cesta();
     }
-    /**
-     * @return Cesta|mixed
-     */
+
     public function obtener_cesta(){
         if ($_SESSION['cesta']){
             return (unserialize($_SESSION['cesta']));}
         else{
-            return new Cesta();}}
-    //
-    /**
-     * @return void
-     */
+            return new Cesta();}
+    }
+
      public function guardar_cesta (){
-        $_SESSION['cesta'] = serialize($this);}//
-    /**
-     * @return bool
-     */
+        $_SESSION['cesta'] = serialize($this);
+    }
+
     public function cesta_vacia(){
         if ($this->cesta == null){
             return true;}
         else{
-            return false;}}
+            return false;}
+    }
 
-    /**
-     * @return array
-     */
     public function getCesta(): array {
         return $this->cesta;}}

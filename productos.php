@@ -1,7 +1,5 @@
 <?php
-session_start();
 
-/*CLASES QUE VAMOS A NECESITAR*/
 spl_autoload_register(function ($clase){
     require ("clases/BD.php");
     require ("clases/Cesta.php");
@@ -9,12 +7,11 @@ spl_autoload_register(function ($clase){
 
 });
 
-/*REDIRECCION*/
-
-
-
-
-
+session_start();
+$user = $_SESSION['user'] ?? null;
+if (is_null($user)) {
+    header("Location:login.php");
+}
 
 $conexion = new BD();
 $lista_productos = $conexion->lista_productos();
@@ -85,6 +82,7 @@ $listado_cesta = $cesta->getCesta();
     </div>
 
     <div class="rigth" style=' background-color: #23272a; color: white;'>
+
         <h1 style="text-align: center; color: #FF5733">CESTA</h1>
         <?php
         $precio_total = 0;
